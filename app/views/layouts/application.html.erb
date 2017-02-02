@@ -13,7 +13,6 @@
   <p class="alert"><%= alert %></p>
   <%- if current_user %>
       <p><%= current_user.email %></p>
-      <p><%= link_to "Ajouter une annonce", new_advert_path %></p>
   <% else %>
       <p><%= link_to "Se connecter", new_user_session_path %></p>
   <% end %>

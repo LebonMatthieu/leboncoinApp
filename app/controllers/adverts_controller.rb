@@ -9,6 +9,10 @@ class AdvertsController < ApplicationController
 
   def edit
     @advert = Advert.find(params[:id])
+
+    unless current_user.id == @advert.user_id
+      redirect_to advert_path , alert: "Vous n'êtes pas propriétaire de cette annonce"
+    end
   end
 
   def update
@@ -22,12 +26,14 @@ class AdvertsController < ApplicationController
   end
 
   def create
-    @advert = Advert.new(advert_params)
+    @advert = current_user.adverts.build(advert_params)
 
-    @advert.save
-    redirect_to @advert
+    if @advert.save
+      redirect_to root_url
+    else
+      render :new
+    end
   end
-
   def show
     @advert = Advert.find(params[:id])
   end
@@ -41,6 +47,6 @@ class AdvertsController < ApplicationController
 
   private
   def advert_params
-    params.require(:advert).permit(:title, :description, :price, :image)
+    params.require(:advert).permit(:title, :description, :price, :image, :category_id, :user_id)
   end
 end

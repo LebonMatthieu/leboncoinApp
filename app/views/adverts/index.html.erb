@@ -22,12 +22,16 @@
         </td>
 
         <td><%= link_to 'Show', advert_path(advert) %></td>
-        <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
-        <td><%= link_to 'Destroy', advert_path(advert),
-                        method: :delete,
-                        data: { confirm: 'Are you sure?' } %></td>
+        <%- if current_user %>
+        <%- if current_user.id == advert.user_id %>
+            <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
+            <td><%= link_to 'Destroy', advert_path(advert),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% end %>
       </tr>
   <% end %>
 </table>
 
-<%= link_to 'New advert', new_advert_path %>
+<%= link_to 'Ajouter une annonce', new_advert_path %>
