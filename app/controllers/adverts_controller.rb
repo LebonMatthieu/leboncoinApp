@@ -4,11 +4,21 @@ class AdvertsController < ApplicationController
   end
 
   def new
-
+    @advert = Advert.new
   end
 
   def edit
+    @advert = Advert.find(params[:id])
+  end
 
+  def update
+    @advert = Advert.find(params[:id])
+
+    if @advert.update(advert_params)
+      redirect_to @advert
+    else
+      render 'edit'
+    end
   end
 
   def create
@@ -20,6 +30,13 @@ class AdvertsController < ApplicationController
 
   def show
     @advert = Advert.find(params[:id])
+  end
+
+  def destroy
+    @advert = Advert.find(params[:id])
+    @advert.destroy
+
+    redirect_to adverts_path
   end
 
   private

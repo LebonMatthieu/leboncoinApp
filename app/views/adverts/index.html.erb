@@ -13,6 +13,10 @@
         <td><%= advert.description %></td>
         <td><%= advert.price %></td>
         <td><%= link_to 'Show', advert_path(advert) %></td>
+        <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
+        <td><%= link_to 'Destroy', advert_path(advert),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %></td>
       </tr>
   <% end %>
 </table>
