@@ -8,5 +8,5 @@
 
 voiture = Category.create(title: 'Voiture')
 maison = Category.create(title: 'Maison')
-voyage = Category.create(title: 'Voyage')
-
+service = Category.create(title: 'Service')
+emploi = Category.create(title: 'Emploi')

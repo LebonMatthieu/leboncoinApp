@@ -1,49 +1,46 @@
-<h1>Listing advert</h1>
-<%= form_tag(adverts_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
-    <%= submit_tag "Search" %>
-<% end %>
-<%- if current_user %>
-  <%= link_to "Profile", current_user %>
-<% end %>
 <% if @adverts.present? %>
-    <table>
-      <tr>
-        <th>Titre</th>
-        <th>Description</th>
-        <th>Prix</th>
-        <th>Image</th>
-      </tr>
-
-      <%= will_paginate @adverts %>
-      <% @adverts.each do |advert| %>
-          <tr>
-            <td><%= advert.title %></td>
-            <td><%= advert.description %></td>
-            <td><%= advert.price %></td>
-            <td>
+    <h1>Liste des annonces</h1>
+    <%- if current_user %>
+        <%= link_to 'Ajouter une annonce', new_advert_path , class:"btn btn-success" %>
+    <% else %>
+        <div class="alert alert-info" role="alert">Vous devez être connecté pour ajouter une annonce</div>
+    <% end %>
+    <%= will_paginate @adverts %>
+    <hr>
+        <% @adverts.each do |advert| %>
+        <div class="row">
+          <div class="col-md-6">
+            <a href="#">
               <% if advert.image.file? %>
-                  <%= image_tag advert.image.url(:medium) %>
+                  <%= image_tag advert.image.url(:medium) , class: "img-responsive" %>
               <% else %>
                   No attachment available!
               <% end %>
-            </td>
-
-            <td><%= link_to 'Show', advert_path(advert) %></td>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <h3><%= advert.title %></h3>
+            <p><%= advert.description %></p>
+            <h4><%= advert.price %> &euro; </h4>
+            <h5>Catégorie : <span class="label label-info"><%= advert.category.title %></span></h5>
+            <%= link_to 'Voir', advert_path(advert), class: "btn btn-primary" %>
             <%- if current_user %>
                 <%- if current_user.id == advert.user_id %>
-                    <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
-                    <td><%= link_to 'Destroy', advert_path(advert),
+                    <%= link_to 'Modifier', edit_advert_path(advert), class: "btn btn-warning"  %>
+                    <%= link_to 'Supprimer', advert_path(advert), class: "btn btn-danger" ,
                                     method: :delete,
-                                    data: { confirm: 'Are you sure?' } %></td>
+                                    data: { confirm: 'Etes-vous sur ?' } %>
                 <% end %>
             <% end %>
-          </tr>
-      <% end %>
-    </table>
-    <%- if current_user %>
-        <%= link_to 'Ajouter une annonce', new_advert_path %>
-    <% end %>
+          </div>
+        </div>
+        <hr>
+        <% end %>
 <% else %>
-    <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+    <h1>Aucune annonce disponible</h1>
+    <%- if current_user %>
+        <%= link_to 'Ajouter une annonce', new_advert_path , class:"btn btn-success" %>
+    <% else %>
+        <div class="alert alert-info" role="alert">Vous devez être connecté pour ajouter une annonce</div>
+    <% end %>
 <% end %>

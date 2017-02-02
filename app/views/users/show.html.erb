@@ -1,36 +1,42 @@
-<table>
-  <tr>
-    <th>Titre</th>
-    <th>Description</th>
-    <th>Prix</th>
-    <th>Image</th>
-  </tr>
-
-  <%= will_paginate @adverts %>
-  <% @adverts.each do |advert| %>
-      <tr>
-        <td><%= advert.title %></td>
-        <td><%= advert.description %></td>
-        <td><%= advert.price %></td>
-        <td>
-          <% if advert.image.file? %>
-              <%= image_tag advert.image.url(:medium) %>
-          <% else %>
-              No attachment available!
-          <% end %>
-        </td>
-
-        <td><%= link_to 'Show', advert_path(advert) %></td>
-        <%- if current_user %>
-            <%- if current_user.id == advert.user_id %>
-                <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
-                <td><%= link_to 'Destroy', advert_path(advert),
+<% if @adverts.present? %>
+    <h1>Liste des annonces</h1>
+    <%- if current_user %>
+        <%= link_to 'Ajouter une annonce', new_advert_path , class:"btn btn-success" %>
+    <% end %>
+    <%= will_paginate @adverts %>
+    <hr>
+    <% @adverts.each do |advert| %>
+        <div class="row">
+          <div class="col-md-6">
+            <a href="#">
+              <% if advert.image.file? %>
+                  <%= image_tag advert.image.url(:medium) , class: "img-responsive" %>
+              <% else %>
+                  No attachment available!
+              <% end %>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <h3><%= advert.title %></h3>
+            <p><%= advert.description %></p>
+            <h4><%= advert.price %> &euro;</h4>
+            <%= link_to 'Voir', advert_path(advert), class: "btn btn-primary" %>
+            <%- if current_user %>
+                <%- if current_user.id == advert.user_id %>
+                    <%= link_to 'Modifier', edit_advert_path(advert), class: "btn btn-warning"  %>
+                    <%= link_to 'Supprimer', advert_path(advert), class: "btn btn-danger" ,
                                 method: :delete,
-                                data: { confirm: 'Are you sure?' } %></td>
+                                data: { confirm: 'Etes-vous sur ?' } %>
+                <% end %>
             <% end %>
-        <% end %>
-      </tr>
-  <% end %>
-</table>
+          </div>
+        </div>
+        <hr>
+    <% end %>
 
-<%= link_to 'Ajouter une annonce', new_advert_path %>
+<% else %>
+    <h1>Vous n'avez pas d'annonce en cours </h1>
+    <%- if current_user %>
+        <%= link_to 'Ajouter une annonce', new_advert_path , class:"btn btn-success" %>
+    <% end %>
+<% end %>
