@@ -1,5 +1,4 @@
 class Advert < ApplicationRecord
-
   def self.search(search)
     where("title LIKE ? OR description LIKE ? OR price LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
 
