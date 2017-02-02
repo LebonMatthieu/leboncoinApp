@@ -13,10 +13,12 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <%- if current_user %>
-      <p><%= current_user.email %></p>
+      <p>Bienvenue, <%= current_user.email %></p>
   <% else %>
       <p><%= link_to "Se connecter", new_user_session_path %></p>
   <% end %>
+
     <%= yield %>
+
   </body>
 </html>

@@ -30,14 +30,18 @@ class AdvertsController < ApplicationController
   end
 
   def create
-    @advert = current_user.adverts.build(advert_params)
-
-    if @advert.save
-      redirect_to root_url
+    if current_user.present?
+      @advert = current_user.adverts.build(advert_params)
+      if @advert.save
+        redirect_to root_url
+      else
+        render :new
+      end
     else
-      render :new
+      redirect_to root_path , alert: "Vous devez être connecté pour publier une anonce"
     end
   end
+
   def show
     @advert = Advert.find(params[:id])
   end

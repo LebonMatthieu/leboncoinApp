@@ -15,4 +15,6 @@
 
 <%= image_tag @advert.image.url(:medium) %>
 <%= link_to 'Back', adverts_path %>
-<%= link_to 'Edit', edit_advert_path(@advert) %> |
+<%- if current_user %>
+<%= link_to 'Edit', edit_advert_path(@advert) %>
+<% end %>
