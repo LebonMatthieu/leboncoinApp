@@ -1,5 +1,5 @@
 
-<%= form_for @advert do |f| %>
+<%= form_for @advert, html: { multipart: true } do |f| %>
 
     <% if @advert.errors.any? %>
         <div id="error_explanation">
@@ -15,6 +15,7 @@
         </div>
     <% end %>
 
+    <%= f.file_field :image %>
     <p>
       <%= f.label :title %><br>
       <%= f.text_field :title %>
