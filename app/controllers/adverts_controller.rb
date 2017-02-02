@@ -1,6 +1,12 @@
 class AdvertsController < ApplicationController
   def index
     @adverts = Advert.all
+
+    if params[:search]
+      @adverts = Advert.search(params[:search]).order("created_at DESC")
+    else
+      @adverts = Advert.all.order('created_at DESC')
+    end
   end
 
   def new

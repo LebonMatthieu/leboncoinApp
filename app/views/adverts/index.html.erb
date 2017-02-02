@@ -1,37 +1,43 @@
 <h1>Listing advert</h1>
-
-<table>
-  <tr>
-    <th>Titre</th>
-    <th>Description</th>
-    <th>Prix</th>
-    <th>Image</th>
-  </tr>
-
-  <% @adverts.each do |advert| %>
+<%= form_tag(adverts_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <%= submit_tag "Search" %>
+<% end %>
+<% if @adverts.present? %>
+    <table>
       <tr>
-        <td><%= advert.title %></td>
-        <td><%= advert.description %></td>
-        <td><%= advert.price %></td>
-        <td>
-          <% if advert.image.file? %>
-              <%= image_tag advert.image.url(:medium) %>
-          <% else %>
-              No attachment available!
-          <% end %>
-        </td>
-
-        <td><%= link_to 'Show', advert_path(advert) %></td>
-        <%- if current_user %>
-        <%- if current_user.id == advert.user_id %>
-            <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
-            <td><%= link_to 'Destroy', advert_path(advert),
-                            method: :delete,
-                            data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-        <% end %>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Image</th>
       </tr>
-  <% end %>
-</table>
+      <% @adverts.each do |advert| %>
+          <tr>
+            <td><%= advert.title %></td>
+            <td><%= advert.description %></td>
+            <td><%= advert.price %></td>
+            <td>
+              <% if advert.image.file? %>
+                  <%= image_tag advert.image.url(:medium) %>
+              <% else %>
+                  No attachment available!
+              <% end %>
+            </td>
 
-<%= link_to 'Ajouter une annonce', new_advert_path %>
+            <td><%= link_to 'Show', advert_path(advert) %></td>
+            <%- if current_user %>
+                <%- if current_user.id == advert.user_id %>
+                    <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
+                    <td><%= link_to 'Destroy', advert_path(advert),
+                                    method: :delete,
+                                    data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+
+    <%= link_to 'Ajouter une annonce', new_advert_path %>
+<% else %>
+    <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+<% end %>
