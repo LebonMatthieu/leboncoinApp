@@ -1,0 +1,20 @@
+<h1>Listing advert</h1>
+
+<table>
+  <tr>
+    <th>Titre</th>
+    <th>Description</th>
+    <th>Prix</th>
+  </tr>
+
+  <% @adverts.each do |advert| %>
+      <tr>
+        <td><%= advert.title %></td>
+        <td><%= advert.description %></td>
+        <td><%= advert.price %></td>
+        <td><%= link_to 'Show', advert_path(advert) %></td>
+      </tr>
+  <% end %>
+</table>
+
+<%= link_to 'New advert', new_advert_path %>
