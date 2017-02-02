@@ -13,6 +13,6 @@
   <%= @advert.price %>
 </p>
 
-<%= image_tag @advert.image.url %>
+<%= image_tag @advert.image.url(:medium) %>
 <%= link_to 'Back', adverts_path %>
 <%= link_to 'Edit', edit_advert_path(@advert) %> |
