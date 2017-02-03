@@ -1,7 +1,7 @@
 class AdvertsController < ApplicationController
   def index
     if params[:search]
-      @adverts = Advert.search(params[:search]).order("created_at DESC").paginate(:page => params[:page], :per_page => 3)
+      @adverts = Advert.search(params[:search]).paginate(:page => params[:page], :per_page => 3)
     else
       @adverts = Advert.paginate(:page => params[:page], :per_page => 3)
     end

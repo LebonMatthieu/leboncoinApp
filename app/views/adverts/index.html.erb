@@ -10,13 +10,7 @@
         <% @adverts.each do |advert| %>
         <div class="row">
           <div class="col-md-6">
-            <a href="#">
-              <% if advert.image.file? %>
-                  <%= image_tag advert.image.url(:medium) , class: "img-responsive" %>
-              <% else %>
-                  No attachment available!
-              <% end %>
-            </a>
+              <%= image_tag advert.image.url(:medium) , class: "img-responsive" %>
           </div>
           <div class="col-md-6">
             <h3><%= advert.title %></h3>
