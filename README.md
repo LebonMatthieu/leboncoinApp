@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Leboncoin clone , project school @Hetic , ruby on rails
 
-Things you may want to cover:
+Steps :
 
-* Ruby version
+* git clone project
+* cd /project
+* bundle install
+* rake db:create
+* rake db:seed
+* rake db:migrate
+* rails server 
+* create user account 
+* enjoy !
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
