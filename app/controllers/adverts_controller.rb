@@ -8,14 +8,22 @@ class AdvertsController < ApplicationController
   end
 
   def new
-    @advert = Advert.new
+    if current_user
+      @advert = Advert.new
+    else
+      redirect_to root_path
+    end
   end
 
   def edit
     @advert = Advert.find(params[:id])
 
-    unless current_user.id == @advert.user_id
-      redirect_to advert_path , alert: "Vous n'êtes pas propriétaire de cette annonce"
+    if current_user
+      unless current_user.id == @advert.user_id
+        redirect_to advert_path , alert: "Vous n'êtes pas propriétaire de cette annonce"
+      end
+    else
+      redirect_to advert_path , alert: "Vous devez être connecté et être propriètaire de cette annonce pour la modifier"
     end
   end
 

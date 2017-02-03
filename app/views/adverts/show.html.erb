@@ -12,6 +12,7 @@
     <h3><%= @advert.title %></h3>
     <p><%= @advert.description %></p>
     <h4><%= @advert.price %> &euro;</h4>
+    <h5>Catégorie : <span class="label label-info"><%= @advert.category.title %></span></h5>
     <%= link_to 'Retour', adverts_path, class: "btn btn-default" %>
     <%- if current_user %>
         <%- if current_user.id == @advert.user_id %>
