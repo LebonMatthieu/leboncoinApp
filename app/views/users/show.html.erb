@@ -1,5 +1,5 @@
 <% if @adverts.present? %>
-    <h1>Liste des annonces</h1>
+    <h1>Liste de mes annonces - <%= @user.email %></h1>
     <%- if current_user %>
         <%= link_to 'Ajouter une annonce', new_advert_path , class:"btn btn-success" %>
     <% end %>
